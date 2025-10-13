@@ -1,8 +1,7 @@
-const path = require('path'); // import path to use html files
+const path = require('path'); // import path module to use html files
 const express = require('express'); // import express
 const app = express(); // setup variable to access express features easier
 const PORT = 3000; // choosing a port to run on
-app.set('view engine', 'html'); // telling express to render things with html
 app.use(express.static('public')); // tell express where the static files are
 
 /** 
@@ -17,4 +16,4 @@ app.get('/', (req, res) => {
 */
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
-});
+})
