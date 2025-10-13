@@ -8,6 +8,16 @@
     </head>
     <body>
         <h1>template setup</h1>
+        <form id="chartForm">
+            <input type="text" id="title" placeholder="Chart title">
+            <br>
+            <select name="chart type" id="chartType">
+                <option value="Bar">Bar</option>
+                <option value="Pie">Pie</option>
+            </select>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
         <div id="myChart" style="max-width:700px; height:400px"></div>
         <script src="/index.js"></script>
     </body>
