@@ -38,6 +38,6 @@ function drawChart() {
   * check what type of chart the user selected and render accordingly
   */
   if(chartType === "Pie"){ chart = new google.visualization.PieChart(document.getElementById('myChart')); }
-  else{ chart = new google.visualization.BarChart(document.getElementById('myChart')); }
+  else{ chart = new google.visualization.ColumnChart(document.getElementById('myChart')); }
   chart.draw(data, options);
 }
