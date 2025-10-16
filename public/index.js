@@ -1,24 +1,24 @@
 google.charts.load('current',{packages:['corechart']}); // load the google chart api
 google.charts.setOnLoadCallback(() => { document.getElementById('myChart').style.display = "none"; }); // set the chart to hidden on page load using an arrow function
-let chart;
 let chartTitle;
 let chartType;
-const form = document.getElementById("chartForm"); // get the form
+const firstForm = document.getElementById("chartForm"); // get the form
 /*
 * event listener for the submit button
 * this sets the chart data to the data the user entered in the form
 * then calls the chart drawing function
 */
-form.addEventListener('submit',(e) => {
+firstForm.addEventListener('submit',(e) => {
   e.preventDefault();
-  chartTitle = form.elements.title.value;
-  chartType = form.elements.chartType.value;
+  chartTitle = firstForm.elements.title.value;
+  chartType = firstForm.elements.chartType.value;
   drawChart();
 });
 /*
 * function to draw the chart using the google charts api
 */
 function drawChart() {
+  let chart;
   const data = google.visualization.arrayToDataTable([
     ['Contry', 'Mhl'],
     ['Italy', 55],
