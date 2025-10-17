@@ -3,7 +3,7 @@
 - [x] user specified chart type
 - [x] user specified title
 - [x] google chart API to create and display chart
-- [ ] user specified number of sections for chart (2-6 inclusive)
+- [x] user specified number of sections for chart (2-6 inclusive)
 - [ ] user specified labels and values for each section
 - [x] chart in roughly the middle of the screen
 - [ ] sectors/bars should have unique colours (likely handled automatically by API)
@@ -13,8 +13,8 @@
 - [ ] user specified label ONLY for the last sector
 - [ ] chart diameter of 300-500 pixels 
 # Column chart
-- [ ] user specified gridline interval (10-100 inclusive)
-- [ ] user specified label for the y-axis
+- [x] user specified gridline interval (10-100 inclusive)
+- [x] user specified label for the y-axis
 - [ ] values of the gridline must be on the right side of the graph (not possible but must mention that in report)
 - [ ] title centered at top of chart (not possible but must mention that in report)
 - [ ] y-axis label should be centered vertically and should not overlap with chart (likely handled automatically by API)
