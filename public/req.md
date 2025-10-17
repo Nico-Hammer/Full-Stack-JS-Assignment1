@@ -12,7 +12,7 @@
 - [ ] user specified total of all sectors
 - [ ] user specified label ONLY for the last sector
 - [ ] chart diameter of 300-500 pixels 
-# Bar chart
+# Column chart
 - [ ] user specified gridline interval (10-100 inclusive)
 - [ ] user specified label for the y-axis
 - [ ] values of the gridline must be on the right side of the graph (not possible but must mention that in report)

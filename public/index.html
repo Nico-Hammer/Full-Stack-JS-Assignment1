@@ -12,21 +12,29 @@
             <label for="title">Chart title:</label>
             <input type="text" id="title" placeholder="Chart title">
             <br>
-
             <label for="chartType">Chart type:</label>
             <select name="chart type" id="chartType">
                 <option value="Column">Column</option>
                 <option value="Pie">Pie</option>
             </select>
             <br>
-
             <label for="sectionCount">Number of sections:</label>
             <input type="number" id="sectionCount" min="2" max="6" placeholder="Number of sections (2-6)">
             <br>
-
             <div id="sectionInputs"></div>
             <br>
-        
+            <button type="submit">Submit</button>
+        </form>
+        <form id="pieForm">
+            <label for="title">Chart title:</label>
+            <input type="text" id="title" placeholder="Chart title">
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        <form id="columnForm">
+            <label for="title">Chart title:</label>
+            <input type="text" id="title" placeholder="Chart title">
+            <br>
             <button type="submit">Submit</button>
         </form>
         <div id="myChart" style="max-width:700px; height:400px"></div>
