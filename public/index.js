@@ -3,6 +3,8 @@ google.charts.setOnLoadCallback(() => { document.getElementById('myChart').style
 let chartTitle;
 let chartType;
 let chartSectionCount;
+let yAxisTitle;
+let xAxisTitle;
 const firstForm = document.getElementById("chartForm"); // get the form
 /*
 * event listener for the submit button
@@ -14,8 +16,31 @@ firstForm.addEventListener('submit',(e) => {
   chartTitle = firstForm.elements.title.value;
   chartType = firstForm.elements.chartType.value;
   chartSectionCount = firstForm.elements.sectionCount.value;
-  drawChart();
+  formRender();
 });
+
+/*
+* function to render the proper chart form and inject the form stuff for the labels and inputs
+* of each section/bar
+*/
+function formRender(){
+  let formToRender;
+  firstForm.style.display = "none"; // hide the first form after submitting it
+  if(chartType === "Pie"){
+    formToRender = document.getElementById("pieForm");
+    formToRender.style.display = "block";
+  }
+  else{
+    formToRender = document.getElementById("columnForm");
+    formToRender.style.display = "block";
+    formToRender.addEventListener('submit',(e) =>{
+      e.preventDefault();
+      yAxisTitle = formToRender.elements.yTitle.value;
+      xAxisTitle = formToRender.elements.xTitle.value;
+      drawChart();
+    })
+  }
+}
 /*
 * function to draw the chart using the google charts api
 */
@@ -35,7 +60,7 @@ function drawChart() {
   const options = {
     title: chartTitle,
     hAxis: {
-      title: 'Time of Day',
+      title: xAxisTitle,
       viewWindow: {
         min: [7, 30, 0],
         max: [17, 30, 0]
@@ -54,7 +79,7 @@ function drawChart() {
       }
     },
     vAxis: {
-      title: 'Rating (scale of 1-10)',
+      title: yAxisTitle,
       textStyle: {
         fontSize: 18,
         color: '#ffffff',
