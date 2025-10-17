@@ -5,7 +5,7 @@
 - [x] google chart API to create and display chart
 - [ ] user specified number of sections for chart (2-6 inclusive)
 - [ ] user specified labels and values for each section
-- [ ] chart in roughly the middle of the screen
+- [x] chart in roughly the middle of the screen
 - [ ] sectors/bars should have unique colours (likely handled automatically by API)
 - [x] each chart should have a legend
 # Pie chart
