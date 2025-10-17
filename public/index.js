@@ -5,6 +5,7 @@ let chartType;
 let chartSectionCount;
 let yAxisTitle;
 let xAxisTitle;
+let gridInt;
 const firstForm = document.getElementById("chartForm"); // get the form
 /*
 * event listener for the submit button
@@ -29,6 +30,10 @@ function formRender(){
   if(chartType === "Pie"){
     formToRender = document.getElementById("pieForm");
     formToRender.style.display = "block";
+    formToRender.addEventListener('submit',(e) =>{
+      e.preventDefault();
+      drawChart();
+    })
   }
   else{
     formToRender = document.getElementById("columnForm");
@@ -37,6 +42,7 @@ function formRender(){
       e.preventDefault();
       yAxisTitle = formToRender.elements.yTitle.value;
       xAxisTitle = formToRender.elements.xTitle.value;
+      gridInt = formToRender.elements.gridInter.value;
       drawChart();
     })
   }
@@ -46,6 +52,7 @@ function formRender(){
 */
 function drawChart() {
   let chart;
+  console.log(gridInt);
   const data = google.visualization.arrayToDataTable([
     ['Contry', 'Mhl'],
     ['Italy', 55],
@@ -61,34 +68,37 @@ function drawChart() {
     title: chartTitle,
     hAxis: {
       title: xAxisTitle,
-      viewWindow: {
-        min: [7, 30, 0],
-        max: [17, 30, 0]
-      },
       textStyle: {
         fontSize: 14,
-        color: '#ffffff',
+        color: '#000000',
         bold: true,
         italic: false
       },
       titleTextStyle: {
         fontSize: 18,
-        color: '#ffffff',
+        color: '#000000',
         bold: true,
         italic: false
       }
     },
     vAxis: {
       title: yAxisTitle,
+      gridlines: {
+        interval: [1,gridInt/2,gridInt/2.5,gridInt],
+      },
+      viewWindow: {
+        min: 0,
+        max: Math.ceil(60 / gridInt) * gridInt
+      },
       textStyle: {
         fontSize: 18,
-        color: '#ffffff',
+        color: '#000000',
         bold: false,
         italic: false
       },
       titleTextStyle: {
         fontSize: 18,
-        color: '#ffffff',
+        color: '#000000',
         bold: true,
         italic: false
       }

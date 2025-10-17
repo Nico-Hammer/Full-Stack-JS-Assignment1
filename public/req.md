@@ -18,8 +18,8 @@
 - [ ] values of the gridline must be on the right side of the graph (not possible but must mention that in report)
 - [ ] title centered at top of chart (not possible but must mention that in report)
 - [ ] y-axis label should be centered vertically and should not overlap with chart (likely handled automatically by API)
-- [ ] horizontal gridlines (likely handled automatically by API)
+- [x] horizontal gridlines (likely handled automatically by API)
 - [ ] value of each bar must be displayed at the top of the bar
-- [ ] label for each bar must be displayed below the bar
+- [x] label for each bar must be displayed below the bar
 - [ ] bars should be evenly distributed along the x-axis (likely handled automatically by API)
 - [ ] each bars value should not exceed 400 or go below 0
