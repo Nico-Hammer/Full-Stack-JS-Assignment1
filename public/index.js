@@ -88,7 +88,7 @@ function drawChart() {
       },
       viewWindow: {
         min: 0,
-        max: Math.ceil(60 / gridInt) * gridInt
+        max: 60 / gridInt * gridInt
       },
       textStyle: {
         fontSize: 18,
