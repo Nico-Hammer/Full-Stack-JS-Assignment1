@@ -36,20 +36,19 @@ function drawChart() {
     title: chartTitle,
     hAxis: {
       title: 'Time of Day',
-      format: 'h:mm a',
       viewWindow: {
         min: [7, 30, 0],
         max: [17, 30, 0]
       },
       textStyle: {
         fontSize: 14,
-        color: '#053061',
+        color: '#ffffff',
         bold: true,
         italic: false
       },
       titleTextStyle: {
         fontSize: 18,
-        color: '#053061',
+        color: '#ffffff',
         bold: true,
         italic: false
       }
@@ -58,13 +57,13 @@ function drawChart() {
       title: 'Rating (scale of 1-10)',
       textStyle: {
         fontSize: 18,
-        color: '#67001f',
+        color: '#ffffff',
         bold: false,
         italic: false
       },
       titleTextStyle: {
         fontSize: 18,
-        color: '#67001f',
+        color: '#ffffff',
         bold: true,
         italic: false
       }
