@@ -61,6 +61,13 @@ function drawChart() {
     ['USA', 24,'#126345'],
     ['Argentina', 15,'#651243']
   ]);
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+    { calc: "stringify",
+      sourceColumn: 1,
+      type: "string",
+      role: "annotation" },
+    2]);
   /* 
   * chart options (currently only setting the title)
   */
@@ -110,5 +117,5 @@ function drawChart() {
   */
   if(chartType === "Pie"){ chart = new google.visualization.PieChart(document.getElementById('myChart')); }
   else{ chart = new google.visualization.ColumnChart(document.getElementById('myChart')); }
-  chart.draw(data, options);
+  chart.draw(view, options);
 }
