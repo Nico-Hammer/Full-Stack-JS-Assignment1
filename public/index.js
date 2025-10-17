@@ -2,6 +2,7 @@ google.charts.load('current',{packages:['corechart']}); // load the google chart
 google.charts.setOnLoadCallback(() => { document.getElementById('myChart').style.display = "none"; }); // set the chart to hidden on page load using an arrow function
 let chartTitle;
 let chartType;
+let chartSectionCount;
 const firstForm = document.getElementById("chartForm"); // get the form
 /*
 * event listener for the submit button
@@ -12,6 +13,7 @@ firstForm.addEventListener('submit',(e) => {
   e.preventDefault();
   chartTitle = firstForm.elements.title.value;
   chartType = firstForm.elements.chartType.value;
+  chartSectionCount = firstForm.elements.sectionCount.value;
   drawChart();
 });
 /*
