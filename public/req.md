@@ -6,7 +6,7 @@
 - [x] user specified number of sections for chart (2-6 inclusive)
 - [ ] user specified labels and values for each section
 - [x] chart in roughly the middle of the screen
-- [ ] sectors/bars should have unique colours (likely handled automatically by API)
+- [x] sectors/bars should have unique colours (likely handled automatically by API)
 - [x] each chart should have a legend
 # Pie chart
 - [ ] user specified total of all sectors

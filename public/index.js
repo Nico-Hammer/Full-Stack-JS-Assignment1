@@ -54,12 +54,12 @@ function drawChart() {
   let chart;
   console.log(gridInt);
   const data = google.visualization.arrayToDataTable([
-    ['Contry', 'Mhl'],
-    ['Italy', 55],
-    ['France', 49],
-    ['Spain', 44],
-    ['USA', 24],
-    ['Argentina', 15]
+    ['Contry', 'Mhl',{ role: 'style' }],
+    ['Italy', 55,'#123456'],
+    ['France', 49,'#654321'],
+    ['Spain', 44,'#345126'],
+    ['USA', 24,'#126345'],
+    ['Argentina', 15,'#651243']
   ]);
   /* 
   * chart options (currently only setting the title)
