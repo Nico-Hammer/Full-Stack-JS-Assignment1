@@ -9,9 +9,9 @@
 - [x] sectors/bars should have unique colours (likely handled automatically by API)
 - [x] each chart should have a legend
 # Pie chart
-- [ ] user specified total of all sectors
-- [ ] user specified label ONLY for the last sector
-- [z] chart diameter of 300-500 pixels 
+- [x] user specified total of all sectors
+- [x] user specified label ONLY for the last sector
+- [x] chart diameter of 300-500 pixels 
 # Column chart
 - [x] user specified gridline interval (10-100 inclusive)
 - [x] user specified label for the y-axis
