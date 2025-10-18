@@ -2,141 +2,149 @@ google.charts.load('current', { packages: ['corechart'] }); // load Google Chart
 google.charts.setOnLoadCallback(() => {
   document.getElementById('myChart').style.display = "none"; // hide chart initially
 });
-
+/* 
+* initialize variables that store chart information but not data to put in the chart
+*/
 let chartTitle;
 let chartType;
 let chartSectionCount;
 let yAxisTitle;
 let xAxisTitle;
 let gridInt;
-
+let pieTotal;
+/*
+* initialize variables to make it easier to work with the forms
+*/
 const firstForm = document.getElementById("chartForm"); 
 const sectionCountInput = document.getElementById('sectionCount');
 const sectionInputsDiv = document.getElementById('sectionInputs');
 const pieForm = document.getElementById("pieForm");
 const columnForm = document.getElementById("columnForm");
-
 /*
-* dynamically create section/bar inputs based on number of sections
+* main form submit listener that gets the chart title and the labels + data for each section from the user
+* then displays the right chart form
+*/
+firstForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  chartTitle = firstForm.elements.title.value;
+  chartSectionCount = parseInt(firstForm.elements.sectionCount.value);
+  firstForm.style.display = "none";
+  /*
+  * show the proper chart depending on chart type selected by user
+  */
+  if (chartType === "Pie") { pieForm.style.display = "block"; } 
+  else { columnForm.style.display = "block"; }
+});
+/*
+* dynamically create section/bar inputs based on number of sections entered by the user
 */
 sectionCountInput.addEventListener('input', () => {
-  const count = parseInt(sectionCountInput.value) || 0;
+  chartType = firstForm.elements.chartType.value; // set the chart type everytime the number of sections is changed
+  const count = sectionCountInput.value; // store the number of sections
   sectionInputsDiv.innerHTML = '';
-
-  if (count < 2 || count > 6) return;
-
+  /*
+  * for loop that creates each label + input for the form after getting the number of sections from the user
+  * then setting the properties so that they work properly
+  */
   for (let i = 1; i <= count; i++) {
     const labelInput = document.createElement('input');
     labelInput.type = 'text';
     labelInput.id = `label${i}`;
     labelInput.placeholder = `Label for section ${i}`;
-
     const valueInput = document.createElement('input');
     valueInput.type = 'number';
     valueInput.id = `value${i}`;
     valueInput.placeholder = `Value for section ${i}`;
-
-    // hide value input for last pie sector
-    if (i === count && chartType === 'Pie') {
-      valueInput.style.display = 'none';
+    valueInput.min = 0; // section value must be above 0
+    valueInput.max = 400; // section value must be <= 400
+    /*
+    * add the labels and input sections for the number of sections specified
+    * if the chart is a pie chart dont make an input box for the final section
+    */
+    if(chartType == 'Pie' && i == count){
+    sectionInputsDiv.appendChild(labelInput);
+    sectionInputsDiv.appendChild(document.createElement('br'));
     }
-
+    else{
     sectionInputsDiv.appendChild(labelInput);
     sectionInputsDiv.appendChild(valueInput);
     sectionInputsDiv.appendChild(document.createElement('br'));
+    }
   }
 });
-
 /*
-* main form submit listener
-*/
-firstForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  chartTitle = firstForm.elements.title.value;
-  chartType = firstForm.elements.chartType.value;
-  chartSectionCount = parseInt(firstForm.elements.sectionCount.value);
-
-  firstForm.style.display = "none";
-
-  if (chartType === "Pie") {
-    pieForm.style.display = "block";
-  } else {
-    columnForm.style.display = "block";
-  }
-});
-
-/*
-* pie form submit listener
+* pie form submit listener that gets the total value from the user then calls the chart drawing function
+* 
 */
 pieForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  pieTotal = pieForm.elements.totalValue.value;
   drawChart();
 });
-
 /*
-* column form submit listener
+* column form submit listener that gets the axis titles and gridline interval from the user then call the chart drawing function
 */
 columnForm.addEventListener('submit', (e) => {
   e.preventDefault();
   yAxisTitle = columnForm.elements.yTitle.value;
   xAxisTitle = columnForm.elements.xTitle.value;
-  gridInt = parseInt(columnForm.elements.gridInter.value) || 10;
+  gridInt = columnForm.elements.gridInter.value;
   drawChart();
 });
-
 /*
 * function to draw the chart
 */
 function drawChart() {
   let chart;
+  let label;
   const dataArray = [];
-
+  /*
+  * if the chart is a pie chart then go through the data and add all the values together before subtracting that
+  * from the total value entered by the user to get the final section value
+  */
   if (chartType === "Pie") {
-    const totalValue = parseFloat(document.getElementById('totalValue').value) || 100;
+    pieTotal = document.getElementById('totalValue').value;
     let sum = 0;
     dataArray.push(['Label', 'Value']);
-
     for (let i = 1; i <= chartSectionCount; i++) {
-      const label = document.getElementById(`label${i}`).value || `Sector ${i}`;
+      label = document.getElementById(`label${i}`).value || `Sector ${i}`;
       if (i < chartSectionCount) {
-        const value = parseFloat(document.getElementById(`value${i}`).value) || 0;
+        let value = document.getElementById(`value${i}`).value;
         sum += value;
         dataArray.push([label, value]);
-      } else {
-        const lastValue = totalValue - sum;
-        dataArray.push([label, lastValue]);
-      }
+      } 
     }
-
-    chart = new google.visualization.PieChart(document.getElementById('myChart'));
-
-  } else { // Column chart
-    dataArray.push(['Label', 'Value', { role: 'style' }]);
-    const colors = [];
-    for (let i = 0; i < chartSectionCount; i++) {
-      colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
-    }
-
-    for (let i = 1; i <= chartSectionCount; i++) {
-      const label = document.getElementById(`label${i}`).value || `Bar ${i}`;
-      let value = parseFloat(document.getElementById(`value${i}`).value) || 0;
-      if (value > 400) value = 400; // max restriction
-      dataArray.push([label, value, colors[i - 1]]);
-    }
-
-    chart = new google.visualization.ColumnChart(document.getElementById('myChart'));
+    const lastValue = pieTotal - sum;
+    dataArray.push([label, lastValue]);
+    chart = new google.visualization.PieChart(document.getElementById('myChart')); // create the chart 
   }
-
-  const data = google.visualization.arrayToDataTable(dataArray);
-
-    var view = new google.visualization.DataView(data);
+  else {
+    dataArray.push(['Label', 'Value', { role: 'style' }]);
+    const colors = []; // create an array to store the column colours
+    for (let i = 1; i <= chartSectionCount; i++) {
+      colors.push('#' + Math.floor(Math.random() * 16777215).toString(16)); // add a random colour to the array
+      const label = document.getElementById(`label${i}`).value || `Bar ${i}`;
+      let value = document.getElementById(`value${i}`).value;
+      dataArray.push([label, value, colors[i]]); // add the label + data to the dataArray including the random colour for the columns
+    }
+    chart = new google.visualization.ColumnChart(document.getElementById('myChart')); // create the chart
+  }
+  const data = google.visualization.arrayToDataTable(dataArray); // store the data in a way that the API can read
+  var view = new google.visualization.DataView(data); // create the data view for the chart data
+  /*
+  * take the data values from the chart data array and then turn those into strings for each column
+  * after that, make them annotations so that they show above the respective columns
+  */
   view.setColumns([0, 1,
     { calc: "stringify",
       sourceColumn: 1,
       type: "string",
       role: "annotation" },
     2]);
-
+  /*
+  * setting the styling options for the chart titles and gridlines
+  * also setting the styling options for the data labels
+  */
   const options = {
     title: chartTitle,
     hAxis: {
@@ -177,7 +185,6 @@ function drawChart() {
       }
     }
   };
-
-  document.getElementById('myChart').style.display = "block";
-  chart.draw(view, options);
+  document.getElementById('myChart').style.display = "block"; // stop hiding the div that shows the chart
+  chart.draw(view, options); // render chart to screen using the view created above to show values on top of columns
 }
